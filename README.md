@@ -133,3 +133,50 @@ Menurut analisis saya, implementasi yang telah dilakukan sudah memenuhi definisi
 **3) Jelaskan kerugian jika tidak menerapkan prinsip SOLID pada proyekmu berikan contohnya.**
 - **Kode Menjadi Rumit dan Sulit Dipelihara:** Jika kita mengabaikan SRP dengan menggabungkan banyak fungsi ke dalam satu kelas tunggal (seperti `ProductController` yang sebelumnya juga mengurus *Car*), file tersebut akan menjadi sangat panjang dan sulit dibaca. Contoh praktisnya: jika ada dua *developer* yang mengerjakan fitur mobil dan produk secara bersamaan pada satu file `ProductController.java`, risiko terjadinya bentrok kode (*merge conflict*) akan sangat tinggi
 - **Sistem Menjadi *Tightly Coupled* (Sangat Terikat):** Jika kita mengabaikan DIP dan tetap memanggil `CarServiceImpl` secara langsung, *controller* akan sangat bergantung pada detail implementasi *service* tersebut. Contohnya, jika *constructor* atau detail internal dari `CarServiceImpl` harus diubah secara drastis, `CarController` kemungkinan besar akan ikut rusak (*error*) dan memaksa kita untuk merombak kodenya juga
+
+
+Mantap, Aldo! Histori refleksimu sangat rapi dan sistematis. Ini membantu saya menyusun refleksi Modul 4 dengan gaya bahasa dan struktur yang konsisten dengan tugas-tugasmu sebelumnya.
+
+Berikut adalah draf refleksi untuk **Module 4 - Refactoring and TDD** yang bisa kamu masukkan ke dalam `README.md`:
+
+
+
+---
+
+
+# Module 4 - Reflection
+
+## Reflection 1: TDD Workflow & Percival’s Self-Reflective Questions
+
+Berdasarkan proses pengerjaan tutorial menggunakan alur **Test-Driven Development (TDD)**, saya merasa alur ini sangat berguna dalam menjaga integritas kode, terutama pada sistem yang kompleks. Berikut adalah hasil refleksi saya berdasarkan pertanyaan Percival (2017):
+
+1. **Apakah TDD membuat pengerjaan lebih lambat atau lebih cepat?**
+Awalnya terasa lebih lambat karena saya harus menulis tes sebelum kodenya ada (fase RED). Namun, TDD justru mempercepat proses secara keseluruhan karena saya tidak perlu melakukan *debugging* manual yang lama di akhir. Tes segera memberi tahu letak kesalahan logika tepat setelah kode diimplementasikan (fase GREEN).
+
+
+2. **Apakah tes membantu dalam mendesain kode?**
+Ya. Dengan menulis tes untuk `Order` model terlebih dahulu, saya dipaksa memikirkan atribut apa saja yang dibutuhkan (ID, Author, Status) dan validasi apa yang harus diterapkan (seperti menolak produk kosong) sebelum mulai menulis logika bisnisnya.
+
+
+3. **Apakah TDD membantu menemukan bug lebih awal?**
+Sangat membantu. Contohnya, saat mengerjakan tutorial, tes langsung mendeteksi kegagalan ketika status pesanan yang dimasukkan tidak sesuai dengan *Enum* yang ditentukan. Tanpa tes, kesalahan "typo" pada string status mungkin baru ditemukan saat aplikasi dijalankan di *production*.
+
+
+**Hal yang perlu dilakukan ke depan:** Saya perlu lebih disiplin dalam melakukan *Refactor* setelah fase *Green*. Kadang ada godaan untuk langsung lanjut ke fitur baru setelah tes lulus, padahal kode masih bisa dirapikan (seperti mengganti *hardcoded string* menjadi *Enum*).
+
+## Reflection 2: Evaluation of F.I.R.S.T. Principle
+
+Setelah mengevaluasi unit test yang telah dibuat (seperti `OrderTest`, `OrderRepositoryTest`, dan `OrderServiceTest`), saya yakin pengujian tersebut telah mengikuti prinsip **F.I.R.S.T.** sebagai berikut:
+
+
+**Fast (Cepat):** Tes berjalan sangat cepat (dalam hitungan milidetik), sehingga tidak menghambat alur kerja saat menjalankan seluruh *test suite* berkali-kali.
+
+**Independent (Mandiri):** Setiap metode tes tidak bergantung pada hasil tes lainnya. Saya menggunakan anotasi `@BeforeEach` untuk memastikan setiap pengujian dimulai dengan data yang bersih (misalnya menginisialisasi ulang list produk atau repositori).
+
+**Repeatable (Dapat Diulang):** Tes memberikan hasil yang sama di lingkungan manapun (baik lokal maupun di GitHub Actions) karena tidak bergantung pada faktor eksternal seperti *database* asli atau koneksi internet, melainkan menggunakan data dalam memori atau *mock object*.
+
+**Self-validating (Validasi Mandiri):** Tes memiliki kriteria kelulusan yang jelas menggunakan *assertions* seperti `assertEquals`, `assertNull`, atau `assertThrows`. Tidak perlu ada pengecekan manual pada *log* atau *output* terminal untuk tahu apakah tes lulus atau gagal.
+
+**Thorough/Timely (Menyeluruh & Tepat Waktu):** Pengujian mencakup skenario *Happy Path* (alur normal) dan *Unhappy Path* (seperti ID tidak ditemukan atau status tidak valid). Tes juga ditulis tepat waktu sesuai siklus TDD (fase RED dibuat sebelum fase GREEN).
+
+
