@@ -36,6 +36,8 @@ class PaymentTest {
     ]
     }
 
+
+    
     @Test
     void testCreatePaymentBankTransferSuccess() {
         paymentData.put("bankName", "BCA");
