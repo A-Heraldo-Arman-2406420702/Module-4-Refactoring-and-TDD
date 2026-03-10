@@ -27,17 +27,8 @@ class PaymentTest {
         paymentData.put("voucherCode", "INVALID");
         Payment payment = new Payment("1", "VOUCHER", paymentData);
         assertEquals("REJECTED", payment.getStatus());
-        [cite:
-        712
-
-    
-    
-
-    ]
     }
 
-
-    
     @Test
     void testCreatePaymentBankTransferSuccess() {
         paymentData.put("bankName", "BCA");
