@@ -50,6 +50,8 @@ class PaymentServiceImplTest {
 
         Map<String, String> paymentData = new HashMap<>();
         paymentData.put("voucherCode", "ESHOP1234ABC5678");
+        paymentData.put("orderId", order.getId());
+
         Payment payment = new Payment("pay1", "VOUCHER", paymentData);
         payments.add(payment);
     }
@@ -67,7 +69,6 @@ class PaymentServiceImplTest {
     @Test
     void testSetStatusSuccessUpdatesOrder() {
         Payment payment = payments.get(0);
-        // Initial payment status is already SUCCESS based on dummy voucher data
 
         Payment result = paymentService.setStatus(payment, "SUCCESS");
 
